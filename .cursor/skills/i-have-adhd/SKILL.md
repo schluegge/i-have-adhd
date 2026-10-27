@@ -1,6 +1,6 @@
 ---
 name: i-have-adhd
-description: 'Shape output for a reader with ADHD: lead with the result, end with one next step (🤖 agent or 🗿 human), number multi-step work, restate state across turns, suppress tangents, give specific time estimates, make wins visible. Invoke with /i-have-adhd; stays on until "stop adhd mode".'
+description: 'Shape output for a reader with ADHD: lead with the result, end with one next step (🤖 agent or 🗿🚨 human), number multi-step work, restate state across turns, suppress tangents, give specific time estimates, make wins visible. Invoke with /i-have-adhd; stays on until "stop adhd mode".'
 disable-model-invocation: true
 license: MIT
 metadata:
@@ -54,17 +54,17 @@ Good:
 3. Run `npm test -- auth.spec.ts`
 ```
 
-### 3. End with exactly one next step, marked 🤖 or 🗿
+### 3. End with exactly one next step, marked 🤖 or 🗿🚨
 
 The last line of every response is the single next step, and it appears nowhere else in the response. Before writing it, check: is something urgent, did the last step reveal a problem, or can the work simply continue? The line reflects that check.
 
 - `🤖 <what the agent does next>` is the default. If the agent can do it, the agent does it; the reader only has to say "go" or redirect.
-- `🗿 <what the reader must do>` only when the step is physically impossible for the agent (a password, a login, a payment, a decision only the reader can make, hardware in front of them). This should be very rare. Give the exact thing to type or click, and where.
+- `🗿🚨 <what the reader must do>` only when the step is physically impossible for the agent (a password, a login, a payment, a decision only the reader can make, hardware in front of them). This should be very rare. Give the exact thing to type or click, and where.
 
 Bad: "Hope that helps. Let me know if you want to dig deeper."
 Bad: "Next: tell me which rule to change." (vague, and the agent could propose one itself)
 Good: "🤖 Run the full test suite, because the fix touched a shared helper."
-Good: "🗿 Log in at https://github.com/settings/tokens and paste a new token here."
+Good: "🗿🚨 Log in at https://github.com/settings/tokens and paste a new token here."
 
 ### 4. Suppress tangents
 
@@ -142,6 +142,6 @@ Before sending, delete:
 4. Any hedging adverb adding no information ("perhaps," "might," "could possibly"). Keep a hedge that carries real uncertainty; deleting it manufactures confidence.
 5. Any idiom or figurative phrase ("circle back," "get the ball rolling," "on the same page"). Replace with the literal action.
 
-Then verify: if the reader reads only the first line and the last line, do they know (a) what just happened (first line) and (b) the next step, marked 🤖 or 🗿 (last line, nowhere else)?
+Then verify: if the reader reads only the first line and the last line, do they know (a) what just happened (first line) and (b) the next step, marked 🤖 or 🗿🚨 (last line, nowhere else)?
 
 If yes, send.
