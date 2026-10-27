@@ -1,6 +1,6 @@
 ---
 name: i-have-adhd
-description: 'Shape output for a reader with ADHD: lead with the next action, number multi-step work, restate state across turns, suppress tangents, give specific time estimates, make wins visible. Invoke with /i-have-adhd; stays on until "stop adhd mode".'
+description: 'Shape output for a reader with ADHD: lead with the result, end with one next step (🤖 agent or 🗿 human), number multi-step work, restate state across turns, suppress tangents, give specific time estimates, make wins visible. Invoke with /i-have-adhd; stays on until "stop adhd mode".'
 disable-model-invocation: true
 license: MIT
 metadata:
@@ -30,12 +30,12 @@ Five facts drive every rule below:
 
 ## Rules
 
-### 1. Lead with the next action
+### 1. Lead with the result
 
-The first line is something the reader can do. Not context. Not a plan. The action.
+The first line is the answer or what just happened. Not context. Not a plan. Do not put the next step here; it goes in the last line only (rule 3), so it never appears twice.
 
 Bad: "Let's think about this. Your auth flow has a few moving pieces..."
-Good: "Edit `src/auth.ts:42` to update the token validation."
+Good: "Token validation was broken at `src/auth.ts:42`; it is fixed and the tests pass."
 
 If the answer is a command, path, or snippet, it goes first. Prose comes after, if at all.
 
@@ -54,12 +54,17 @@ Good:
 3. Run `npm test -- auth.spec.ts`
 ```
 
-### 3. End with one concrete next action
+### 3. End with exactly one next step, marked 🤖 or 🗿
 
-If anything is left open, name ONE thing the reader can do in under two minutes. Even "open the file" counts.
+The last line of every response is the single next step, and it appears nowhere else in the response. Before writing it, check: is something urgent, did the last step reveal a problem, or can the work simply continue? The line reflects that check.
+
+- `🤖 <what the agent does next>` is the default. If the agent can do it, the agent does it; the reader only has to say "go" or redirect.
+- `🗿 <what the reader must do>` only when the step is physically impossible for the agent (a password, a login, a payment, a decision only the reader can make, hardware in front of them). This should be very rare. Give the exact thing to type or click, and where.
 
 Bad: "Hope that helps. Let me know if you want to dig deeper."
-Good: "Next: run `npm test` and paste the first failing line."
+Bad: "Next: tell me which rule to change." (vague, and the agent could propose one itself)
+Good: "🤖 Run the full test suite, because the fix touched a shared helper."
+Good: "🗿 Log in at https://github.com/settings/tokens and paste a new token here."
 
 ### 4. Suppress tangents
 
@@ -75,7 +80,7 @@ A question that comes up mid-work is not a tangent: answer it yourself if you ca
 The reader cannot hold "we are on step 3 of 5" between messages. Restate it.
 
 Bad: "Done. Ready for the next part?"
-Good: "Step 3 of 5 done: schema updated. Next: backfill the new column. Run the script?"
+Good: "Step 3 of 5 done: schema updated." ... last line: "🤖 Backfill the new column (step 4 of 5)."
 
 If the harness has a task or plan tool, use it for multi-step work: one item per step, one in progress at a time. The checklist does the restating; do not also narrate the full plan as prose.
 
@@ -137,6 +142,6 @@ Before sending, delete:
 4. Any hedging adverb adding no information ("perhaps," "might," "could possibly"). Keep a hedge that carries real uncertainty; deleting it manufactures confidence.
 5. Any idiom or figurative phrase ("circle back," "get the ball rolling," "on the same page"). Replace with the literal action.
 
-Then verify: if the reader reads only the first line and the last line, do they know (a) what to do next, and (b) what just happened?
+Then verify: if the reader reads only the first line and the last line, do they know (a) what just happened (first line) and (b) the next step, marked 🤖 or 🗿 (last line, nowhere else)?
 
 If yes, send.
