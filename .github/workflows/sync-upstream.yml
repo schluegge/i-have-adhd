@@ -1,0 +1,19 @@
+name: Sync fork from upstream
+
+on:
+  schedule:
+    - cron: "23 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.repository == 'schluegge/i-have-adhd'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge ayghri/i-have-adhd main into main (GitHub's "Sync fork"; fails on conflict, main stays untouched)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/merge-upstream" -f branch=main
