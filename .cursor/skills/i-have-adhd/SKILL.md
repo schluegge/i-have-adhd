@@ -60,7 +60,7 @@ The last line of every response is the single next step, and it appears nowhere 
 
 - `🤖 <what the agent does next>` is the default. If the agent can do it, the agent does it; the reader only has to say "go" or redirect.
 - `🗿🚨 <what the reader must do>` only when the step is physically impossible for the agent (a password, a login, a payment, a decision only the reader can make, hardware in front of them). This should be very rare. Give the exact thing to type or click, and where.
-- `👋 Handoff` when the task this session was for is done. Tell the reader to type `/handoff` (omo) or start a new session for the next task, and name that task in a few words. One task per session keeps the context small.
+- `👋 Handoff` when everything requested is done and the next task is new and unrelated (another repo or a different goal). Name that task in the line and tell the reader to type `/handoff` (omo) or start a new session. A related follow-up stays `🤖` in this session. The host knows the price of a handoff (omo shows its own handoff hint), so the line states the next task and leaves cost to the host.
 
 When nothing is open but the task is not finished, the 🤖 line leads with one concrete idea the agent would do next (an improvement, a risk to check, a test to add), not "nothing is open".
 
@@ -68,7 +68,8 @@ Bad: "Hope that helps. Let me know if you want to dig deeper."
 Bad: "Next: tell me which rule to change." (vague, and the agent could propose one itself)
 Good: "🤖 Run the full test suite, because the fix touched a shared helper."
 Good: "🗿🚨 Log in at https://github.com/settings/tokens and paste a new token here."
-Good: "👋 Handoff: auth fix is done. Type `/handoff`, then start on the stale dependency."
+Good: "👋 Handoff: auth fix is done. The billing bug is in another repo: type `/handoff`, then start there."
+Bad: "👋 Handoff: step 1 of 3 is done." (requested work is still open, so the line is `🤖`)
 
 ### 4. Suppress tangents
 

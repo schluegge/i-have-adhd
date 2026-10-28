@@ -26,7 +26,7 @@ try {
 
   process.stderr.write(
     "i-have-adhd rule 3: the last line of your answer must be the single next step, " +
-      "starting with 🤖 (you do it), 🗿🚨 (only the reader can do it) or 👋 (task done: tell the reader to /handoff). " +
+      "starting with 🤖 (you do it), 🗿🚨 (only the reader can do it) or 👋 (everything requested is done and the next task is unrelated: tell the reader to /handoff). " +
       "Reply with only that one line now; do not repeat the answer.\n",
   );
   process.exit(2);
